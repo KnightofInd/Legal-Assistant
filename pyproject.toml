@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "okf-generator"
+version = "0.1.0"
+description = "Deterministic PDF-to-OKF ingestion pipeline for the Companies Act"
+requires-python = ">=3.12"
+dependencies = [
+  "pymupdf>=1.24.0",
+  "pydantic>=2.7.0",
+]
+
+[tool.setuptools]
+package-dir = {"" = "."}
+
+[tool.setuptools.packages.find]
+include = ["okf_generator*"]
