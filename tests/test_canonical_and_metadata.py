@@ -8,7 +8,7 @@ from okf_generator.parser.toc_parser import TOCParser
 def test_metadata_extractor_builds_deterministic_metadata():
     document = PDFReader().read("MCA.pdf")
     entries = TOCParser().parse(document)
-    boundary = SectionDetector().detect(document, entries)[0]
+    boundary = next(item for item in SectionDetector().detect(document, entries) if item.section == "1")
 
     metadata = MetadataExtractor().extract(document, boundary)
 

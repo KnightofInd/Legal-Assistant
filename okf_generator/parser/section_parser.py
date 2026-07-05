@@ -16,6 +16,7 @@ class SectionParser:
             stripped_page = self._strip_page_header(page_text)
             if index == 0:
                 stripped_page = self._slice_from_heading(stripped_page, boundary)
+                stripped_page = self._slice_before_next_heading(stripped_page, boundary)
             normalized_pages.append(stripped_page)
         return "\n\n".join(page.strip() for page in normalized_pages if page.strip())
 
@@ -43,4 +44,16 @@ class SectionParser:
         match = heading_pattern.search(page_text)
         if match:
             return page_text[match.start():]
+        return page_text
+
+    def _slice_before_next_heading(self, page_text: str, boundary: SectionBoundary) -> str:
+        if not boundary.next_section or not boundary.next_title:
+            return page_text
+
+        next_section_number = re.escape(boundary.next_section)
+        next_title = re.escape(boundary.next_title.rstrip("."))
+        next_heading_pattern = re.compile(rf"(?is)\n\s*{next_section_number}\.\s*{next_title}")
+        match = next_heading_pattern.search(page_text)
+        if match:
+            return page_text[:match.start()].rstrip()
         return page_text

@@ -19,5 +19,7 @@ class SectionBoundary(BaseModel):
     chapter_title: str = ""
     section: str
     title: str
+    next_section: str | None = None
+    next_title: str | None = None
     start_page: int = Field(ge=1)
     end_page_exclusive: int = Field(ge=1)

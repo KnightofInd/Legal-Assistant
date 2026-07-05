@@ -1,0 +1,4 @@
+output/
+okf_generator/__pycache__/
+tests/__pycache__/
+PROJECT_STRUCTURE.md
